@@ -146,10 +146,9 @@ def get_average_returns():
         returns_file = os.path.join(analysis_dir, 'average_returns.csv')
         if not os.path.exists(returns_file):
             return jsonify({'error': f'Average returns data not found at {returns_file}'}), 404
-            
+
         df = pd.read_csv(returns_file)
-        # Convert to dictionary with symbol as key
-        data = {row['symbol']: row for _, row in df.iterrows()}
+        data = df.set_index('symbol').to_dict(orient='index')
         return jsonify(data)
     except Exception as e:
         return jsonify({'error': f'Error loading average returns data: {str(e)}'}), 500
