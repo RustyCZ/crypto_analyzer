@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Correlation Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Crypto Correlation Analyzer</h1>
+        <p>Identifying cryptocurrencies that don't follow the general altcoin market</p>
+    </header>
+    
+    <main>
+        <section class="summary">
+            <h2>Analysis Summary</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Total Coins Analyzed</h3>
+                    <p class="big-number" id="totalCoins">-</p>
+                </div>
+                <div class="card">
+                    <h3>Uncorrelated Coins</h3>
+                    <p class="big-number" id="uncorrelatedCoins">-</p>
+                    <p>Correlation threshold: 0.3</p>
+                </div>
+                <div class="card">
+                    <h3>Price Distance Outliers</h3>
+                    <p class="big-number" id="priceDistanceCoins">-</p>
+                    <p>Distance threshold: 30%</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="charts">
+            <h2>Market Average vs. Individual Coins</h2>
+            <div class="chart-container">
+                <canvas id="marketChart"></canvas>
+            </div>
+            
+            <div class="coin-selector">
+                <label for="coinSelect">Select Coin: </label>
+                <select id="coinSelect">
+                    <option value="">Select a coin...</option>
+                </select>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </section>
+        
+        <section class="tables">
+            <h2>Detailed Results</h2>
+            
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="uncorrelated">Uncorrelated Coins</button>
+                    <button class="tab-button" data-tab="price-distance">Price Distance Outliers</button>
+                    <button class="tab-button" data-tab="all-coins">All Coins</button>
+                </div>
+                
+                <div class="tab-content active" id="uncorrelated-tab">
+                    <table id="uncorrelatedTable">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Average Correlation</th>
+                                <th>Cumulative Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="price-distance-tab">
+                    <table id="priceDistanceTable">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Price Distance</th>
+                                <th>Cumulative Return</th>
+                                <th>Market Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="all-coins-tab">
+                    <table id="allCoinsTable">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Avg Daily Return</th>
+                                <th>Cumulative Return</th>
+                                <th>Correlation</th>
+                                <th>Price Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Crypto Correlation Analyzer - Data from CoinGecko API</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
